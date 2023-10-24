@@ -3,28 +3,33 @@
 // Execute `rustlings hint enums2` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
-
 #[derive(Debug)]
 enum Message {
-    // TODO: define the different variants used below
+    Move((i32, i32)),
+    Echo(String),
+    ChangeColor((i32, i32, i32)),
+    Quit,
 }
 
 impl Message {
-    fn call(&self) {
+    fn call(&self) -> String {
         println!("{:?}", self);
+        match self {
+            Message::Echo(string) => string.to_string(),
+            _ => String::from("aha!"),
+        }
     }
 }
 
 fn main() {
     let messages = [
-        Message::Move { x: 10, y: 30 },
+        Message::Move((10, 2)),
         Message::Echo(String::from("hello world")),
-        Message::ChangeColor(200, 255, 255),
+        Message::ChangeColor((200, 255, 255)),
         Message::Quit,
     ];
 
     for message in &messages {
-        message.call();
+        println!("testing, value: {}", message.call())
     }
 }
